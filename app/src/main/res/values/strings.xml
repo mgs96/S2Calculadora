@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">S2Calculadora</string>
+    <string name="div">\u00F7</string>
+    <string name="mult">\u00D7</string>
 </resources>
