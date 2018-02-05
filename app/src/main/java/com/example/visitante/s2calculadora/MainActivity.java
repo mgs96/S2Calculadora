@@ -1,5 +1,7 @@
 package com.example.visitante.s2calculadora;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -197,5 +199,20 @@ public class MainActivity extends AppCompatActivity {
         toShow = "";
         operation = "*";
         pseudoinput.setText("");
+    }
+
+    public void onclickgotodetails(View view) {
+        Intent two = new Intent(this, SecondActivity.class);
+        two.putStringArrayListExtra("param", numbersNoperations);
+        startActivityForResult(two, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK) {
+
+            }
+        }
     }
 }
