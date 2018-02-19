@@ -94,7 +94,8 @@ public class SecondActivity extends AppCompatActivity {
                     input.setLayoutParams(inputLayout);
                     input.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
                     input.setText(lista.get((int) bt.getTag()));
-                    input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+                    input.setSelection(input.getText().length());
                     builder1.setView(input);
                     builder1.setPositiveButton(
                             "Si",
