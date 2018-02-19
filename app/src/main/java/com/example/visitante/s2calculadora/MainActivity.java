@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView resultados;
     private EditText pseudoinput;
 
-    private String result = "";
-    private String toShow = "";
+    private String result;
+    private String toShow;
     private String operation;
     private String storedNumber;
     int index;
@@ -53,15 +53,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState == null) {
+            result = "";
+            toShow = "";
+            numbersNoperations = new ArrayList<>();
+            numbersNoperations.add("");
+            index = 0;
+        }
+        else {
+            result = savedInstanceState.getString("result");
+            toShow = savedInstanceState.getString("toShow");
+            numbersNoperations = savedInstanceState.getStringArrayList("numbersNoperations");
+            index = savedInstanceState.getInt("index");
+        }
+
         resultados = findViewById(R.id.results);
         pseudoinput = findViewById(R.id.pseudoinput);
-
         resultados.setText(result);
         pseudoinput.setText(toShow);
-        
-        numbersNoperations = new ArrayList<>();
-        numbersNoperations.add("");
-        index = 0;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("index", index);
+        outState.putString("result", result);
+        outState.putString("toShow", toShow);
+        outState.putStringArrayList("numbersNoperations", numbersNoperations);
+        super.onSaveInstanceState(outState);
     }
 
     public void onClickNine(View view) {

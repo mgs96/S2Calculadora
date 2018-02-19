@@ -75,6 +75,8 @@ public class SecondActivity extends AppCompatActivity {
             final Button bt = new Button(this);
             bt.setText("Editar");
             bt.setLayoutParams(elementParams);
+            bt.setBackgroundResource(R.drawable.button_theme);
+            bt.setTextColor(getResources().getColor(R.color.white, null));
             bt.setTag(count);
             row.addView(bt);
 
@@ -116,7 +118,17 @@ public class SecondActivity extends AppCompatActivity {
                                 }
                             });
 
-                    AlertDialog alert11 = builder1.create();
+                    final AlertDialog alert11 = builder1.create();
+                    alert11.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            //alert11.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.colorPrimary, null));
+                            alert11.getButton(AlertDialog.BUTTON_POSITIVE).setBackgroundResource(R.drawable.button_ok);
+                            alert11.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white, null));
+                            alert11.getButton(AlertDialog.BUTTON_NEGATIVE).setBackgroundResource(R.drawable.button_cancel);
+                            alert11.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white, null));
+                        }
+                    });
                     alert11.show();
                 }
             });
@@ -130,7 +142,10 @@ public class SecondActivity extends AppCompatActivity {
 
         Button bt2 = new Button(this);
         bt2.setText("Go Back");
+        bt2.setBackgroundResource(R.drawable.button_theme);
+        bt2.setTextColor(getResources().getColor(R.color.white, null));
         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        lp2.setMargins(8, 8, 8, 8);
         bt2.setLayoutParams(lp2);
         bt2.setOnClickListener(new View.OnClickListener() {
             @Override
