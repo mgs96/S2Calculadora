@@ -211,8 +211,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK) {
+                String toShow = "";
                 ArrayList<String> lalista = data.getStringArrayListExtra("lista");
+                numbersNoperations = lalista;
                 resultados.setText(operator(lalista) + "");
+                for(String item : lalista) {
+                    toShow += item;
+                }
+                pseudoinput.setText(toShow);
             }
         }
     }
