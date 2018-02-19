@@ -1,14 +1,22 @@
 package com.example.visitante.s2calculadora;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,37 +47,55 @@ public class SecondActivity extends AppCompatActivity {
     int count;
 
     private void generateLayout(final ArrayList<String> lista) {
+        // creacion del layout
         LinearLayout newLayout = new LinearLayout(this);
         newLayout.setOrientation(LinearLayout.VERTICAL);
         for (String element: lista) {
+
+            // creación y configuracion de filas
             LinearLayout row = new LinearLayout(this);
             row.setOrientation(LinearLayout.HORIZONTAL);
+            int width = LinearLayout.LayoutParams.MATCH_PARENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, height);
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
+            // creación y configuración de los elementos
             final TextView tv = new TextView(this);
-            tv.setTextSize(32);
-            tv.setLayoutParams(lp);
+            tv.setTextSize(48);
+            int elementWidth = 0;
+            int elementHeight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            float elementWeight = 0.5f;
+            LinearLayout.LayoutParams elementParams = new LinearLayout.LayoutParams(elementWidth, elementHeight, elementWeight);
+            tv.setLayoutParams(elementParams);
             tv.setId(count);
+            tv.setGravity(Gravity.CENTER);
+            row.addView(tv);
+
 
             final Button bt = new Button(this);
             bt.setText("Editar");
-            bt.setLayoutParams(lp);
+            bt.setLayoutParams(elementParams);
             bt.setTag(count);
+            row.addView(bt);
 
+            // creación de los listeners
             bt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(view.getContext());
-                    builder1.setMessage("Desea editar?");
+                    builder1.setTitle("Editar este elemento");
                     builder1.setCancelable(true);
 
                     final EditText input = new EditText(view.getContext());
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                    input.setLayoutParams(lp);
+                    int inputWidth = LinearLayout.LayoutParams.MATCH_PARENT;
+                    int inputHeight = LinearLayout.LayoutParams.MATCH_PARENT;
+                    LinearLayout.LayoutParams inputLayout = new LinearLayout.LayoutParams(inputWidth, inputHeight);
+                    inputLayout.gravity = Gravity.CENTER_HORIZONTAL;
+                    input.setLayoutParams(inputLayout);
+                    input.setTextSize(TypedValue.COMPLEX_UNIT_SP, 48);
                     input.setText(lista.get((int) bt.getTag()));
+                    input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     builder1.setView(input);
-
                     builder1.setPositiveButton(
                             "Si",
                             new DialogInterface.OnClickListener() {
@@ -95,8 +121,7 @@ public class SecondActivity extends AppCompatActivity {
             });
 
             tv.setText(element);
-            row.addView(tv);
-            row.addView(bt);
+
             newLayout.addView(row);
             count++;
         }
